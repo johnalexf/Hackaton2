@@ -33,37 +33,52 @@ public class Main {
                     "Salir"
             };
 
+        int opcion = 0;
         do {
             System.out.println("\n Menu principal de agenda");
             for (int i = 0; i < menu.length; i++) {
-                System.out.println(i + " : " + menu[i]);
+                System.out.println(i+1 + " : " + menu[i]);
             }
             System.out.println("Elija una de las opciones anteriores");
-            switch (scanInt.nextInt()) {
-                case 0:
-                    //"Añadir contacto"
-
-                    break;
+            opcion = scanInt.nextInt();
+            switch (opcion) {
                 case 1:
+                    //"Añadir contacto"
+                    
+                    break;
+                case 2:
                     //"Buscar contacto"
 
                     break;
-                case 2:
+                case 3:
                     //"Listar contactos"
 
                     break;
-                case 0:
-                    //"Añadir contacto"
+                case 4:
+                    //"Modificar contacto"
 
                     break;
+                case 5:
+                    //"Modificar Telefono"
 
-                
+                    break;
+                case 6:
+                    //"Espacios disponibles"
+
+                    break;
+                case 7:
+                    //"Eliminar Contacto"
+
+                    break;
+                case 8:
+                    //"Salir"
+
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
             }
 
-
-
-
-        }while();
+        }while(opcion != 8);
 
 
 

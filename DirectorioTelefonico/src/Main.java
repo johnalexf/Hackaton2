@@ -1,6 +1,5 @@
 import clases.Agenda;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -18,11 +17,11 @@ public class Main {
         return new String[]{nombre, apellido};
     }
 
-    public static int pedirTelefono(){
+    public static String pedirTelefono(){
         Scanner sc2 = new Scanner(System.in);
-        int telefono1;
+        String telefono1;
         System.out.println("Escriba el telefono nuevo del contacto");
-        telefono1 = sc2.nextInt();
+        telefono1 = sc2.nextLine();
         sc2.close();
         return telefono1;
     }
@@ -31,6 +30,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        Scanner scannerInt = new Scanner(System.in);
 
         //variable de control de maximo tamaño de la agenda
         int maxAgenda = 10;
@@ -41,7 +41,7 @@ public class Main {
                 "\n Si deseas un plan personalizado ingresa 's' en caso contrario 'n'");
         if(scanner.nextLine().equals("s")){
             System.out.println("Escriba la cantidad maxima de contactos");
-            maxAgenda = scanner.nextInt();
+            maxAgenda = scannerInt.nextInt();
         }
 
         Agenda agendaTelefonica = new Agenda(maxAgenda);
@@ -67,7 +67,7 @@ public class Main {
                 System.out.println(i+1 + " : " + menu[i]);
             }
             System.out.println("Elija una de las opciones anteriores");
-            opcion = scanner.nextInt();
+            opcion = scannerInt.nextInt();
             switch (opcion) {
                 case 1:
                     //"Añadir contacto"
@@ -76,8 +76,11 @@ public class Main {
                     //verificar si ya existe usuario
                     if(!agendaTelefonica.verificarContacto(nombreApellido[0],nombreApellido[1])){
                         System.out.println("Escriba el telefono nuevo del contacto");
-                        telefono = scanner.nextInt();
-                        //telefono = pedirTelefono();
+                        String tel = scanner.nextLine();
+                        System.out.println(tel);
+//                        scanner.nextLine();
+//                        telefono = scanner.nextInt();
+                        //System.out.println(pedirTelefono());
                         agendaTelefonica.anadirContacto(nombreApellido[0],nombreApellido[1],telefono);
                     }else{
                         System.out.println("El usuario ya existe");
@@ -110,7 +113,7 @@ public class Main {
 
                     //verificar si ya existe usuario
                     if(agendaTelefonica.verificarContacto(nombreApellido[0],nombreApellido[1])){
-                        telefono = pedirTelefono();
+                        //telefono = pedirTelefono();
                         agendaTelefonica.modifcarTelefono(nombreApellido[0],nombreApellido[1],telefono);
                     }else{
                         System.out.println("El usuario no existe");

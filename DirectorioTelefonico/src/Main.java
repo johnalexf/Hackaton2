@@ -1,95 +1,15 @@
 import clases.Agenda;
-import clases.Contacto;
+import clases.PedirDatosConsola;
 
 import java.util.Scanner;
 
 
 public class Main {
 
-    public static boolean isNumeric(String cadena) {
-
-        boolean resultado;
-        try {
-            Integer.parseInt(cadena);
-            resultado = true;
-            System.out.println("Es numero");
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
-            System.out.println("No es numero, error");
-        }
-        return resultado;
-    }
-
-    public static boolean esNumero(String cadena) {
-        System.out.println("esnumero");
-        return cadena.matches("-?\\d+(\\.\\d+)?"); // Verifica números enteros y decimales
-    }
-
-    public static boolean isNumTelefono(String telefonoAVerificar) {
-
-        boolean resultado;
-        try {
-            if(telefonoAVerificar.charAt(0)== '3' || telefonoAVerificar.charAt(0)== '6' ) {
-                resultado = true;
-            }else{
-                resultado = false;
-            }
-        } catch (NumberFormatException excepcion) {
-            resultado = false;
-        }
-        return resultado;
-    }
-
-
-
-    public static String[] pedirNombreApellido(Scanner sc) {
-        String nombre;
-        String apellido;
-
-
-        System.out.println("Escriba el nombre del contacto");
-        nombre = sc.nextLine();
-        while(nombre.length()<=2 && esNumero(nombre)){
-            System.out.println("Nombre invalido, debe tener mas de dos caracteres");
-            System.out.println("Escriba el nombre del contacto");
-            nombre = sc.nextLine();
-        }
-
-        System.out.println("Escriba el apellido del contacto");
-        apellido = sc.nextLine();
-        while(apellido.length()<=2 && isNumeric(apellido)){
-            System.out.println("Apellido invalido, debe tener mas de dos caracteres");
-            System.out.println("Escriba el apellido del contacto");
-            apellido = sc.nextLine();
-        }
-
-        return new String[]{nombre, apellido};
-    }
-
-    public static String pedirTelefono(Scanner sc) {
-        String telefono1;
-        System.out.println("Escriba el telefono nuevo del contacto");
-        telefono1 = sc.nextLine();
-        while((telefono1.length()!=10) && !isNumTelefono(telefono1)){
-
-                System.out.println(""" 
-                        \nTelefono invalido
-                        Debe tener 10 caracteres
-                        Empieza con 3 para un numero de celular
-                        Empieza con 6 para numero local fijo
-                        Escribe nuevamente el numero por favor
-                        """
-                );
-                telefono1 = sc.nextLine();
-
-        }
-
-        return telefono1;
-    }
-
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
 
         // Variable de control de maximo tamaño de la agenda
         int maxAgenda = 10;
@@ -139,10 +59,10 @@ public class Main {
                     // "Añadir contacto"
                     if(!agendaTelefonica.agendaLlena()) {
 
-                        nombreApellido = pedirNombreApellido(scanner);
+                        nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
                         // Verificar si ya existe usuario
                         if (!agendaTelefonica.verificarContacto(nombreApellido[0], nombreApellido[1])) {
-                            telefono = pedirTelefono(scanner);
+                            telefono = PedirDatosConsola.pedirTelefono(scanner);
                             agendaTelefonica.anadirContacto(nombreApellido[0], nombreApellido[1], telefono);
                         } else {
                             System.out.println("El usuario ya existe");
@@ -159,7 +79,7 @@ public class Main {
 
                 case 2:
                     // "Buscar contacto"
-                    nombreApellido = pedirNombreApellido(scanner);
+                    nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
                     agendaTelefonica.buscarContacto(nombreApellido[0], nombreApellido[1]);
                     scanner.nextLine();
                     break;
@@ -171,12 +91,12 @@ public class Main {
 
                 case 4:
                     // "Modificar contacto"
-                    nombreApellido = pedirNombreApellido(scanner);
+                    nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
 
                     // Verificar si ya existe usuario
                     if (agendaTelefonica.verificarContacto(nombreApellido[0], nombreApellido[1])) {
-                        nombreApellido = pedirNombreApellido(scanner);
-                        telefono = pedirTelefono(scanner);
+                        nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
+                        telefono = PedirDatosConsola.pedirTelefono(scanner);
                         agendaTelefonica.modificarContacto(nombreApellido[0], nombreApellido[1], telefono);
                     } else {
                         System.out.println("El usuario no existe");
@@ -186,11 +106,11 @@ public class Main {
 
                 case 5:
                     // "Modificar Telefono"
-                    nombreApellido = pedirNombreApellido(scanner);
+                    nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
 
                     // Verificar si ya existe usuario
                     if (agendaTelefonica.verificarContacto(nombreApellido[0], nombreApellido[1])) {
-                        telefono = pedirTelefono(scanner);
+                        telefono = PedirDatosConsola.pedirTelefono(scanner);
                         agendaTelefonica.modificarTelefono(nombreApellido[0], nombreApellido[1], telefono);
                     } else {
                         System.out.println("El usuario no existe");
@@ -206,7 +126,7 @@ public class Main {
                 case 7:
                     // "Eliminar Contacto"
                     System.out.println("Escribe los siguientes datos del contacto que deseas eliminar");
-                    nombreApellido = pedirNombreApellido(scanner);
+                    nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
                     if (agendaTelefonica.verificarContacto(nombreApellido[0], nombreApellido[1])) {
                         agendaTelefonica.eliminarContacto(nombreApellido[0], nombreApellido[1]);
                     } else {

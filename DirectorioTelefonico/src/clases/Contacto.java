@@ -32,7 +32,7 @@ public class Contacto {
     }
 
     public int getTelefono() {
-        return Telefono;
+        return telefono;
     }
 
     public void setTelefono(int telefono) {

@@ -1,7 +1,7 @@
 import clases.Agenda;
 import clases.PedirDatosConsola;
-
 import java.util.Scanner;
+import static java.lang.Integer.parseInt;
 
 
 public class Main {
@@ -23,8 +23,17 @@ public class Main {
         //Si el usuario desea cambiar el tamaño maximo se le pregunta de que tamaño lo desea
         if (scanner.nextLine().equals("s")) {
             System.out.println("Escriba la cantidad maxima de contactos");
-            maxAgenda = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer del scanner
+            String numApoyo = scanner.nextLine();
+            while(!numApoyo.matches("^[0-9]+$")) {
+                System.out.println("""
+                        Solo se aceptan numeros
+                        Escriba nuevamente la cantidad maxima de contactos
+                        """);
+                numApoyo = scanner.nextLine();
+
+            }
+            maxAgenda = parseInt(numApoyo);
+            //scanner.nextLine();// Limpiar el buffer del scanner
         }
 
         Agenda agendaTelefonica = new Agenda(maxAgenda);
@@ -39,7 +48,7 @@ public class Main {
                 "Salir"
         };
 
-        int opcion = 0;
+        String opcion = "";
         String[] nombreApellido = {"", ""};
         String telefono = "";
         String temporal = "";
@@ -51,11 +60,11 @@ public class Main {
                 System.out.println(i + 1 + " : " + menu[i]);
             }
             System.out.println("Elija una de las opciones anteriores");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer del scanner
+            opcion = scanner.nextLine();
+            //scanner.nextLine(); // Limpiar el buffer del scanner
 
             switch (opcion) {
-                case 1:
+                case "1":
                     // "Añadir contacto"
                     if(!agendaTelefonica.agendaLlena()) {
 
@@ -74,37 +83,39 @@ public class Main {
                         Por favor eliminar un contacto si desea agregar uno nuevo.
                         """);
                     }
-                    scanner.nextLine();
+
                     break;
 
-                case 2:
+                case "2":
                     // "Buscar contacto"
                     nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
                     agendaTelefonica.buscarContacto(nombreApellido[0], nombreApellido[1]);
-                    scanner.nextLine();
+
                     break;
 
-                case 3:
+                case "3":
                     // "Listar contactos"
                     agendaTelefonica.listarContacto();
                     break;
 
-                case 4:
+                case "4":
                     // "Modificar contacto"
+                    System.out.println("Escriba la informacion del contacto a modificar");
                     nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
 
                     // Verificar si ya existe usuario
                     if (agendaTelefonica.verificarContacto(nombreApellido[0], nombreApellido[1])) {
+                        System.out.println("Escriba la nueva informacion del contacto");
                         nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
                         telefono = PedirDatosConsola.pedirTelefono(scanner);
                         agendaTelefonica.modificarContacto(nombreApellido[0], nombreApellido[1], telefono);
                     } else {
                         System.out.println("El usuario no existe");
                     }
-                    scanner.nextLine();
+
                     break;
 
-                case 5:
+                case "5":
                     // "Modificar Telefono"
                     nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
 
@@ -115,15 +126,15 @@ public class Main {
                     } else {
                         System.out.println("El usuario no existe");
                     }
-                    scanner.nextLine();
+
                     break;
 
-                case 6:
+                case "6":
                     // "Espacios disponibles"
                     agendaTelefonica.espaciosLibres();
                     break;
 
-                case 7:
+                case "7":
                     // "Eliminar Contacto"
                     System.out.println("Escribe los siguientes datos del contacto que deseas eliminar");
                     nombreApellido = PedirDatosConsola.pedirNombreApellido(scanner);
@@ -132,10 +143,10 @@ public class Main {
                     } else {
                         System.out.println("El usuario no existe");
                     }
-                    scanner.nextLine();
+
                     break;
 
-                case 8:
+                case "8":
                     // "Salir"
                     break;
 
@@ -144,10 +155,10 @@ public class Main {
             }
 
 
-            System.out.println("Para continuar oprime enter");
+            System.out.println("\nPara continuar oprime enter");
             temporal = scanner.nextLine();
 
-        } while (opcion != 8);
+        } while (!opcion.equals("8"));
 
         scanner.close(); // Cerrar el scanner al final del programa
     }

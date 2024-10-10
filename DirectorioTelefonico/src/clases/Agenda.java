@@ -1,9 +1,8 @@
 package clases;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Agenda extends Contacto  {
+public class Agenda extends Contacto {
 
 
     Set<Contacto> agenda = new HashSet<>();
@@ -32,7 +31,7 @@ public class Agenda extends Contacto  {
 
             Contacto contacto = new Contacto(nombre.toLowerCase(), apellido.toLowerCase(), telefono);
             agenda.add(contacto);
-            System.out.println("Contacto añadadido");
+            System.out.println("Contacto añadido");
             System.out.println("Nombre : " + contacto.getNombre());
             System.out.println("Apellido : " + contacto.getApellido());
             System.out.println("Telefono : " + contacto.getTelefono());
@@ -55,7 +54,10 @@ public class Agenda extends Contacto  {
     }
 
     public void listarContacto(){
-        for(Contacto contacto: agenda){
+        List<Contacto> agendaOrdenada = new ArrayList<>(agenda);
+        Collections.sort(agendaOrdenada);
+
+        for(Contacto contacto: agendaOrdenada){
             System.out.println( contacto.getNombre()
                     + " " + contacto.getApellido()
                     + " - " + contacto.getTelefono()
@@ -111,7 +113,6 @@ public class Agenda extends Contacto  {
     public boolean agendaLlena(){
         return (agenda.size() >= maxSize);
     }
-
 
 
 

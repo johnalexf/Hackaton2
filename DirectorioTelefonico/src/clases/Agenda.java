@@ -1,10 +1,11 @@
 package clases;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
-public class Agenda extends Contacto{
+
+
+public class Agenda extends Contacto {
 
     Set<Contacto> agenda = new HashSet<>();
 
@@ -16,24 +17,68 @@ public class Agenda extends Contacto{
         this.maxSize = maxSize;
     }
 
-    public void anadirContacto(String nombre, String apellido, int telefono){
-
+    public boolean verificarContacto(String nombre, String apellido) {
+        boolean existe = false;
+        for (Contacto contacto : agenda) {
+            if(contacto.getNombre().equals(nombre.toLowerCase()) &&
+                    contacto.getApellido().equals(apellido.toLowerCase())){
+                existe = true;
+                break;
+            }
+        }
+        return existe;
     }
 
-    public int buscarContacto(String nombre, String apellido){
+    public void anadirContacto(String nombre, String apellido, int telefono){
+        Contacto contacto = new Contacto(nombre.toLowerCase(), apellido.toLowerCase(), telefono);
+        agenda.add(contacto);
+        System.out.println("Contacto añadadido");
+        System.out.println("Nombre : " + contacto.getNombre());
+        System.out.println("Apellido : " + contacto.getApellido());
+        System.out.println("Telefono : " + contacto.getTelefono());
+    }
 
-
+    public void buscarContacto(String nombre, String apellido){
+        boolean existe = false;
+        for (Contacto contacto : agenda) {
+            if(contacto.getNombre().equals(nombre.toLowerCase()) &&
+                    contacto.getApellido().equals(apellido.toLowerCase())){
+                System.out.println("Contacto encontrado");
+                System.out.println("El telefono del contacto es : " + contacto.getTelefono());
+                existe = true;
+                break;
+            }
+        }
+        if(!existe) {
+            System.out.println("Contacto no encontrado");
+        }
     }
 
     public void listarContacto(){
-
+        for(Contacto contacto: agenda){
+            System.out.println( contacto.getNombre()
+                    + " " + contacto.getApellido()
+                    + " - " + contacto.getTelefono()
+            );
+        }
     }
 
     public void eliminarContacto(String nombre, String apellido){
 
     }
 
-    public void modifcarTelefono(String nombre, String apellido){
+    public void modifcarTelefono(String nombre, String apellido, int telefono){
+        for (Contacto contacto : agenda) {
+            if(contacto.getNombre().equals(nombre.toLowerCase()) &&
+                    contacto.getApellido().equals(apellido.toLowerCase())){
+                contacto.setTelefono(telefono);
+                System.out.println("Telefono modificado para" + contacto.getNombre() +
+                        " " + contacto.getApellido()
+                        + " y el nuevo número es: " + contacto.getTelefono()
+                );
+                break;
+            }
+        }
 
     }
     public void espaciosLibres(){

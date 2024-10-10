@@ -3,8 +3,6 @@ package clases;
 import java.util.HashSet;
 import java.util.Set;
 
-
-
 public class Agenda extends Contacto {
 
     Set<Contacto> agenda = new HashSet<>();
@@ -30,12 +28,13 @@ public class Agenda extends Contacto {
     }
 
     public void anadirContacto(String nombre, String apellido, int telefono){
-        Contacto contacto = new Contacto(nombre.toLowerCase(), apellido.toLowerCase(), telefono);
-        agenda.add(contacto);
-        System.out.println("Contacto añadadido");
-        System.out.println("Nombre : " + contacto.getNombre());
-        System.out.println("Apellido : " + contacto.getApellido());
-        System.out.println("Telefono : " + contacto.getTelefono());
+
+            Contacto contacto = new Contacto(nombre.toLowerCase(), apellido.toLowerCase(), telefono);
+            agenda.add(contacto);
+            System.out.println("Contacto añadadido");
+            System.out.println("Nombre : " + contacto.getNombre());
+            System.out.println("Apellido : " + contacto.getApellido());
+            System.out.println("Telefono : " + contacto.getTelefono());
     }
 
     public void buscarContacto(String nombre, String apellido){
@@ -64,10 +63,33 @@ public class Agenda extends Contacto {
     }
 
     public void eliminarContacto(String nombre, String apellido){
-
+        for (Contacto contacto : agenda) {
+            if(contacto.getNombre().equals(nombre.toLowerCase()) &&
+                    contacto.getApellido().equals(apellido.toLowerCase())){
+                System.out.println("El contacto " + contacto.getNombre() +
+                        " " + contacto.getApellido()
+                        + " fue eliminado "
+                );
+                agenda.remove(contacto);
+                break;
+            }
+        }
     }
 
-    public void modifcarTelefono(String nombre, String apellido, int telefono){
+    public void modificarContacto (String nombre, String apellido, int telefono){
+        for (Contacto contacto : agenda) {
+            if(contacto.getNombre().equals(nombre.toLowerCase()) &&
+                    contacto.getApellido().equals(apellido.toLowerCase())){
+                contacto.setNombre(nombre.toLowerCase());
+                contacto.setApellido(apellido.toLowerCase());
+                contacto.setTelefono(telefono);
+                System.out.println("Contacto modificado con exito");
+                break;
+            }
+        }
+    }
+
+    public void modificarTelefono(String nombre, String apellido, int telefono){
         for (Contacto contacto : agenda) {
             if(contacto.getNombre().equals(nombre.toLowerCase()) &&
                     contacto.getApellido().equals(apellido.toLowerCase())){
@@ -80,11 +102,13 @@ public class Agenda extends Contacto {
             }
         }
     }
+
     public void espaciosLibres(){
-
+        System.out.println("Tienes espacio para " + (maxSize - agenda.size()) + " contactos");
     }
-    public void agendaLlena(){
 
+    public boolean agendaLlena(){
+        return (agenda.size() >= maxSize);
     }
 
 

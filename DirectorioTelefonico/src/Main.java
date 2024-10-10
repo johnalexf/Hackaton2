@@ -44,7 +44,7 @@ public class Main {
             switch (opcion) {
                 case 1:
                     //"Añadir contacto"
-                    
+
                     break;
                 case 2:
                     //"Buscar contacto"

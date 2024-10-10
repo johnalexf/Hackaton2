@@ -1,20 +1,20 @@
 package clases;
-
+// Clase padre contacto con los parametros asignados definida como publica
 public class Contacto {
-
-    String nombre;
-    String apellido;
-    int telefono;
-
+// atributos designados por el ejercicio
+    private String nombre;
+    private String apellido;
+    private int telefono;
+//constructor sin parametros en caso de necesitar creacion de objetos vacios
     public Contacto() {
     }
-
+//constructor con parametros requeridos
     public Contacto(String nombre, String apellido, int telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
     }
-
+//getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -36,6 +36,6 @@ public class Contacto {
     }
 
     public void setTelefono(int telefono) {
-        Telefono = telefono;
+        this.telefono = telefono;
     }
 }

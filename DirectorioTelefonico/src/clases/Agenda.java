@@ -3,7 +3,8 @@ package clases;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Agenda extends Contacto {
+public class Agenda extends Contacto  {
+
 
     Set<Contacto> agenda = new HashSet<>();
 
@@ -27,7 +28,7 @@ public class Agenda extends Contacto {
         return existe;
     }
 
-    public void anadirContacto(String nombre, String apellido, int telefono){
+    public void anadirContacto(String nombre, String apellido, String telefono){
 
             Contacto contacto = new Contacto(nombre.toLowerCase(), apellido.toLowerCase(), telefono);
             agenda.add(contacto);
@@ -76,7 +77,7 @@ public class Agenda extends Contacto {
         }
     }
 
-    public void modificarContacto (String nombre, String apellido, int telefono){
+    public void modificarContacto (String nombre, String apellido, String telefono){
         for (Contacto contacto : agenda) {
             if(contacto.getNombre().equals(nombre.toLowerCase()) &&
                     contacto.getApellido().equals(apellido.toLowerCase())){
@@ -89,7 +90,7 @@ public class Agenda extends Contacto {
         }
     }
 
-    public void modificarTelefono(String nombre, String apellido, int telefono){
+    public void modificarTelefono(String nombre, String apellido, String telefono){
         for (Contacto contacto : agenda) {
             if(contacto.getNombre().equals(nombre.toLowerCase()) &&
                     contacto.getApellido().equals(apellido.toLowerCase())){

@@ -4,12 +4,12 @@ public class Contacto {
 // atributos designados por el ejercicio
     private String nombre;
     private String apellido;
-    private int telefono;
+    private String telefono;
 //constructor sin parametros en caso de necesitar creacion de objetos vacios
     public Contacto() {
     }
 //constructor con parametros requeridos
-    public Contacto(String nombre, String apellido, int telefono) {
+    public Contacto(String nombre, String apellido, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
@@ -31,11 +31,11 @@ public class Contacto {
         this.apellido = apellido;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 }

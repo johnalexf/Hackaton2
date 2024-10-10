@@ -6,21 +6,84 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static boolean isNumeric(String cadena) {
+
+        boolean resultado;
+        try {
+            Integer.parseInt(cadena);
+            resultado = true;
+            System.out.println("Es numero");
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
+            System.out.println("No es numero, error");
+        }
+        return resultado;
+    }
+
+    public static boolean esNumero(String cadena) {
+        System.out.println("esnumero");
+        return cadena.matches("-?\\d+(\\.\\d+)?"); // Verifica números enteros y decimales
+    }
+
+    public static boolean isNumTelefono(String telefonoAVerificar) {
+
+        boolean resultado;
+        try {
+            if(telefonoAVerificar.charAt(0)== '3' || telefonoAVerificar.charAt(0)== '6' ) {
+                resultado = true;
+            }else{
+                resultado = false;
+            }
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+
+
     public static String[] pedirNombreApellido(Scanner sc) {
         String nombre;
         String apellido;
 
+
         System.out.println("Escriba el nombre del contacto");
         nombre = sc.nextLine();
+        while(nombre.length()<=2 && esNumero(nombre)){
+            System.out.println("Nombre invalido, debe tener mas de dos caracteres");
+            System.out.println("Escriba el nombre del contacto");
+            nombre = sc.nextLine();
+        }
+
         System.out.println("Escriba el apellido del contacto");
         apellido = sc.nextLine();
+        while(apellido.length()<=2 && isNumeric(apellido)){
+            System.out.println("Apellido invalido, debe tener mas de dos caracteres");
+            System.out.println("Escriba el apellido del contacto");
+            apellido = sc.nextLine();
+        }
+
         return new String[]{nombre, apellido};
     }
 
-    public static int pedirTelefono(Scanner sc) {
-        int telefono1;
+    public static String pedirTelefono(Scanner sc) {
+        String telefono1;
         System.out.println("Escriba el telefono nuevo del contacto");
-        telefono1 = sc.nextInt();
+        telefono1 = sc.nextLine();
+        while((telefono1.length()!=10) && !isNumTelefono(telefono1)){
+
+                System.out.println(""" 
+                        \nTelefono invalido
+                        Debe tener 10 caracteres
+                        Empieza con 3 para un numero de celular
+                        Empieza con 6 para numero local fijo
+                        Escribe nuevamente el numero por favor
+                        """
+                );
+                telefono1 = sc.nextLine();
+
+        }
+
         return telefono1;
     }
 
@@ -58,7 +121,7 @@ public class Main {
 
         int opcion = 0;
         String[] nombreApellido = {"", ""};
-        int telefono = 0;
+        String telefono = "";
         String temporal = "";
 
         do {
